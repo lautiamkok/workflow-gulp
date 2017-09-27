@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=500" />
+    <meta name="author" content="..." />
+    <meta name="description" content="...">
+    <meta name="keywords" content="...">
+    <title>Lily...</title>
+
+    <!-- CSS bundle -->
+    <link href="dist/bundle.min.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
+
+    <!-- JS bundle -->
+    <script src="dist/bundle.min.js"></script>
+
+</head>
+<body>
+
+    <header role="header">
+
+        <!-- expanded -->
+        <div class="bg-image bg-padding-top-100 expanded">
+
+            <!-- row -->
+            <div class="row">
+
+                <!-- grid container -->
+                <div class="grid-container bg-white bg-padding-top-100">
+
+                    <!-- grid x -->
+                    <div class="grid-x grid-padding-x">
+                        <div class="medium-8 cell medium-offset-2 box-center" data-aos="fade-in">
+                            <i class="icon-lily-logotype text-responsive text-center see-through"></i>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- row -->
+
+            <!-- row -->
+            <div class="row">
+
+                <!-- grid container -->
+                <div class="grid-container bg-white">
+
+                    <!-- grid x -->
+                    <div class="grid-x grid-padding-x">
+                        <div class="medium-6 cell medium-offset-3" data-aos="fade-up">
+                            <h1 class="heading1">Who We Are</h1>
+                            <span class="deco-line"></span>
+                            <p>Lily are a property agent, landlord and developer based in Liverpool city centre in the United Kingdom.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- row -->
+
+            <!-- row -->
+            <div class="row bg-white bg-padding-bottom-40">
+
+                <!-- grid container -->
+                <div class="grid-container bg-padding-bottom-60">
+
+                    <!-- grid x -->
+                    <div class="grid-x grid-padding-x">
+                        <div class="medium-6 cell medium-offset-3" data-aos="fade-up">
+                            <p>We work on projects that range from residential to light industrial and utilise our experience in a variety of fields to create sustainable mixed use development and bring it to market.</p>
+
+                            <p>We try to ensure our developments have a positive impact on their environment and local community as well as providing fulfilling and functional environments for our commercial and residential tennants.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- row -->
+
+
+        </div>
+        <!-- expanded -->
+
+    </header>
+
+    <main role="main">
+
+        <!-- expanded -->
+        <div class="bg-image expanded">
+
+            <!-- row -->
+            <div class="row bg-white bg-padding-top-40 bg-padding-bottom-40">
+
+                <form class="form-comment form-submit" id="formComment" data-abide novalidate action="server.php" data-aos="fade-up">
+
+                     <!-- grid container -->
+                     <div class="grid-container">
+
+                        <!-- grid x -->
+                        <div class="grid-x grid-padding-x">
+
+                            <div class="medium-12 cell">
+                                <div data-abide-error class="alert callout" style="display: none;">
+                                    <p><i class="fi-alert"></i> There are some errors in your form.</p>
+                                </div>
+                            </div>
+
+
+                            <div class="medium-6 cell">
+                                <label>
+                                    <input type="text" name="name" class="form-input" placeholder="Name" required>
+                                    <span class="form-error">Yo, you had better fill this out, it's required.</span>
+                                </label>
+                            </div>
+
+                            <div class="medium-6 cell">
+                                <label>
+                                    <input type="text" name="phone" class="form-input" placeholder="Phone number" pattern="UK_number_only">
+                                    <span class="form-error">Yo, UK landline or mobile numbers only.</span>
+                                </label>
+                            </div>
+
+                            <div class="medium-12 cell">
+                                <label>
+                                    <input type="email" name="email" class="form-input" placeholder="Email" pattern="email" required>
+                                    <span class="form-error">Yo, you had better fill this out, it's required. Or, it is invalid.</span>
+                                </label>
+                            </div>
+
+                            <div class="medium-12 cell">
+                                <label>
+                                    <textarea placeholder="Message" name="message" class="form-input" rows="10" required></textarea>
+                                    <span class="form-error">Yo, you had better fill this out, it's required.</span>
+                                </label>
+                            </div>
+
+                            <div class="medium-12 cell">
+                                <input type="submit" class="button button-send float-right" value="Send">
+                            </div>
+
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+            <!-- row -->
+
+        </div>
+        <!-- expanded -->
+
+        <div class="reveal" id="reveal1" data-reveal>
+          <!-- Content will be loaded here from somwhere else, crazy! -->
+          <h3>Loading...</h3>
+        </div>
+
+    </main>
+
+    <footer>
+
+        <!-- expanded -->
+        <div class="bg-image bg-image-position-bottom expanded">
+
+            <!-- row -->
+            <div class="row bg-white bg-padding-bottom-60 bg-padding-top-80">
+
+                <!-- grid container -->
+                <div class="grid-container" data-aos="fade-up">
+
+                    <!-- grid x -->
+                    <div class="grid-x grid-padding-x">
+                        <div class="medium-6 cell">
+                            <h2 class="heading2">CONTACT DETAILS</h2>
+
+                            <p>email: info@lily-property.co.uk</p>
+
+                            <p>phone: +44 (0) 151 230 1666</p>
+
+                            <p>address:<br/>
+                            95 Kempston Street<br/>
+                            Liverpool<br/>
+                            L3 8HE</p>
+                        </div>
+                        <div class="medium-6 cell">
+                            <i class="icon-lily-logotype float-right"></i>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- row -->
+
+        </div>
+        <!-- expanded -->
+
+    </footer>
+
+</body>
+</html>

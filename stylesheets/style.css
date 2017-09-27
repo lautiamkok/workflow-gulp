@@ -1,0 +1,316 @@
+/**
+ * ===============================================================
+ * Guide.
+ * ===============================================================
+ */
+/**
+ * ===============================================================
+ * Base
+ * ===============================================================
+ */
+/**
+ * Variables.
+ */
+/**
+ * ===============================================================
+ * Base - functions
+ * ===============================================================
+ */
+/**
+ * Add box shadow.
+ * @param  {[type]} @size: 0             [description]
+ * @param  {[type]} @r:0   [description]
+ * @param  {[type]} @g:0   [description]
+ * @param  {[type]} @b:0   [description]
+ * @param  {[type]} @a:1   [description]
+ * @return {[type]}        [description]
+ */
+/**
+ * Adding animation.
+ * @param  {[type]} @speed: 0.25s         [description]
+ * @return {[type]}         [description]
+ */
+/**
+ * Adding fade in out effect on hover, etc.
+ * @param  {[type]} $property: color         [description]
+ * @param  {[type]} $time:     1s            [description]
+ * @param  {[type]} $method:   ease-in-out   [description]
+ * @return {[type]}            [description]
+ */
+/**
+ * Center element vertically & horizontally.
+ */
+/**
+ * ===============================================================
+ * Dependencies
+ * ===============================================================
+ */
+@import 'font-face.css';
+@import '../node_modules/foundation-sites/dist/css/foundation.min.css';
+@import '../node_modules/foundation-icon-fonts/foundation-icons.css';
+@import '../node_modules/aos/dist/aos.css';
+/**
+ * ===============================================================
+ * HTML/ Global
+ * ===============================================================
+ */
+html,
+body {
+  font-family: 'avertastd-regular', sans-serif;
+  font-size: 16px;
+  position: relative;
+}
+.text-uppercase {
+  text-transform: uppercase;
+}
+.box-center {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.heading1,
+.heading2,
+.heading3 {
+  font-family: 'avertastd-bold', sans-serif;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+.bg-image {
+  padding-top: 40px;
+  /* The image used */
+  background-image: url('../images/lily-landscape.jpg');
+  /* Full height */
+  height: 100%;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.bg-image.bg-image-position-bottom {
+  background-position: bottom center;
+}
+.bg-white {
+  background-color: #ffffff;
+}
+.bg-padding-top-40 {
+  padding-top: 40px;
+}
+.bg-padding-top-80 {
+  padding-top: 80px;
+}
+.bg-padding-top-100 {
+  padding-top: 100px;
+}
+.bg-padding-bottom-60 {
+  padding-bottom: 60px;
+}
+.bg-padding-bottom-40 {
+  padding-bottom: 40px;
+}
+/**
+ * ===============================================================
+ * Header: navbar, menu
+ * ===============================================================
+ */
+/**
+ * Make fontsize responsive.
+ * https://stackoverflow.com/questions/14431411/pure-css-to-make-font-size-responsive-based-on-dynamic-amount-of-characters
+ */
+.text-responsive {
+  font-size: 3vw;
+}
+/**
+ * Make text see-through.
+ * https://stackoverflow.com/questions/26642359/how-to-make-see-through-text
+ */
+.see-through {
+  display: block;
+  /* step 1: get a background */
+  background: url('../images/lily-landscape.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  /* step 2: clip it */
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  /* fallback text color
+      ~ or ~
+     the actual color of text, so it better work on the background */
+  color: #000000;
+}
+.heading1 {
+  font-size: 20px;
+}
+.deco-line {
+  display: block;
+  border-top: 1px solid #000000;
+  width: 2%;
+  margin-top: 10%;
+  padding-bottom: 10%;
+}
+/**
+ * ===============================================================
+ * Main
+ * ===============================================================
+ */
+.button.button-send {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+  text-transform: uppercase;
+  font-family: 'avertastd-semibold', sans-serif;
+  font-weight: bold;
+  background-color: #000;
+  color: #fff;
+}
+.button.button-send:hover,
+.button.button-send:focus {
+  background-color: #00a9c5;
+}
+.alert,
+.form-error {
+  border: none;
+}
+/*
+Change the placeholder colour.
+http://foundation.zurb.com/forum/posts/19004-customcss-file-doesnt-work--placeholder-color-cant-change
+https://stackoverflow.com/questions/2610497/change-an-html5-inputs-placeholder-color-with-css
+*/
+form.form-comment input::-webkit-input-placeholder,
+form.form-comment textarea::-webkit-input-placeholder {
+  /* WebKit, Blink, Edge */
+  color: #000000;
+  font-family: 'avertastd-semibold', sans-serif;
+  text-transform: uppercase;
+}
+form.form-comment input:-moz-placeholder,
+form.form-comment textarea:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #000000;
+  font-family: 'avertastd-semibold', sans-serif;
+  text-transform: uppercase;
+}
+form.form-comment input::-moz-placeholder,
+form.form-comment textarea::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #000000;
+  font-family: 'avertastd-semibold', sans-serif;
+  text-transform: uppercase;
+}
+form.form-comment input:-ms-input-placeholder,
+form.form-comment textarea::-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #000000;
+  font-family: 'avertastd-semibold', sans-serif;
+  text-transform: uppercase;
+}
+form.form-comment input::-ms-input-placeholder,
+form.form-comment textarea::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #000000;
+  font-family: 'avertastd-semibold', sans-serif;
+  text-transform: uppercase;
+}
+/*
+Change the Chrome autocomplete colour.
+https://codepen.io/team/css-tricks/pen/oxyJxR
+*/
+form.form-subscribe input.form-input:-webkit-autofill,
+form.form-comment input.form-input:-webkit-autofill {
+  border: 1px solid #000000;
+  -webkit-text-fill-color: #ffffff;
+  -webkit-box-shadow: 0 0 0px 1000px #000000 inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+form.form-comment input.form-input,
+form.form-comment textarea.form-input {
+  background-color: #c8e9df;
+  color: #000000;
+  border: none;
+}
+/**
+ * ===============================================================
+ * Footer
+ * ===============================================================
+ */
+/* Small only */
+@media screen and (max-width: 39.9375em) {
+  footer .menu li {
+    text-align: center;
+  }
+}
+/**
+ * ===============================================================
+ * Others - Material Icons
+ * ===============================================================
+ */
+.material-icons {
+  padding: 0;
+  margin: 0;
+}
+.material-icons.md-light {
+  color: #ffffff;
+}
+.material-icons.md-dark-background {
+  background-color: #313131;
+}
+.material-icons.md-60 {
+  font-size: 60px;
+}
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/MaterialIcons-Regular.eot');
+  /* For IE6-8 */
+  src: local('Material Icons'), local('MaterialIcons-Regular'), url('fonts/MaterialIcons-Regular.woff2') format('woff2'), url('fonts/MaterialIcons-Regular.woff') format('woff'), url('fonts/MaterialIcons-Regular.ttf') format('truetype');
+}
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+.material-icons.md-80 {
+  font-size: 80px;
+  line-height: 20px;
+}
+/**
+ * ===============================================================
+ * Customise Foundation font path.
+ * ===============================================================
+ */
+@font-face {
+  font-family: "foundation-icons";
+  src: url("fonts/foundation-icons.eot");
+  src: url("fonts/foundation-icons.eot?#iefix") format("embedded-opentype"), url("fonts/foundation-icons.woff") format("woff"), url("fonts/foundation-icons.ttf") format("truetype"), url("fonts/foundation-icons.svg#fontcustom") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*# sourceMappingURL=maps/style.css.map */
