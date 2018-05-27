@@ -1,0 +1,172 @@
+/**
+ * ===============================================================
+ * Base - functions
+ * ===============================================================
+ */
+
+/**
+ * Add box shadow.
+ * @param  {[type]} @size: 0             [description]
+ * @param  {[type]} @r:0   [description]
+ * @param  {[type]} @g:0   [description]
+ * @param  {[type]} @b:0   [description]
+ * @param  {[type]} @a:1   [description]
+ * @return {[type]}        [description]
+ */
+// .boxShadow(@h-shadow: 0; @v-shadow: 0; @blur: 0; @spread: 0; @r:0; @g:0; @b:0; @a:1) {
+//     -moz-box-shadow:    @h-shadow @v-shadow @blur @spread rgba(@r, @g, @b, @a);
+//     -webkit-box-shadow: @h-shadow @v-shadow @blur @spread rgba(@r, @g, @b, @a);
+//     box-shadow:         @h-shadow @v-shadow @blur @spread rgba(@r, @g, @b, @a);
+// }
+//
+// Or better:
+// http://stackoverflow.com/questions/40317404/less-potentially-unhandled-rejection-2-no-matching-definition-was-found
+// http://lesscss.org/features/#mixins-parametric-feature-mixins-with-multiple-parameters
+.boxShadow(@h-shadow: 0; @v-shadow: 0; @blur: 0; @spread: 0; @rgba: 0, 0, 0, 1) {
+    @r: extract(@rgba, 1);
+    @g: extract(@rgba, 2);
+    @b: extract(@rgba, 3);
+    @a: extract(@rgba, 4);
+    -moz-box-shadow:    @h-shadow @v-shadow @blur @spread rgba(@r, @g, @b, @a);
+    -webkit-box-shadow: @h-shadow @v-shadow @blur @spread rgba(@r, @g, @b, @a);
+    box-shadow:         @h-shadow @v-shadow @blur @spread rgba(@r, @g, @b, @a);
+}
+
+/**
+ * Adding animation.
+ * @param  {[type]} @speed: 0.25s         [description]
+ * @return {[type]}         [description]
+ */
+.transition(@speed: 0.25s) {
+    /*For Safari 3.1 to 6.0 */
+    -webkit-transition: @speed;
+    transition: @speed;
+}
+
+/**
+ * Adding fade in out effect on hover, etc.
+ * https://css-tricks.com/almanac/properties/t/transition/
+ * @param  {[type]} $property: all         [description]
+ * @param  {[type]} $time:     1s            [description]
+ * @param  {[type]} $method:   ease-in-out   [description]
+ * @return {[type]}            [description]
+ */
+.fadeInOut(@property: all, @time: 1s, @method: ease-in-out) {
+    -webkit-transition: @property @time @method 1s;
+    -moz-transition: @property @time @method 1s;
+    -ms-transition: @property @time @method 1s;
+    -o-transition: @property @time @method 1s;
+    transition: @property @time @method 1s;
+}
+
+/**
+ * Make opacity.
+ * https://css-tricks.com/snippets/css/useful-css3-less-mixins/
+ */
+.opacity (@opacity: 0.5) {
+    -webkit-opacity:    @opacity;
+    -moz-opacity:       @opacity;
+    opacity:        @opacity;
+}
+
+.changePlaceholderColour() {
+    // color: #000000;
+    // font-weight: bold;
+
+    font-family: @sub-font;
+    // font-size: 24px;
+    // font-style: italic;
+}
+
+/**
+ * Center element vertically & horizontally.
+ */
+.centerElement() {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+/**
+ * Left vertical center.
+ * http://zerosixthree.se/vertical-align-anything-with-just-3-lines-of-css/
+ */
+.verticalCenterLeft() {
+    // position: relative;
+    // top: 50%;
+    // transform: translateY(-50%);
+
+    .centerElement();
+
+    flex-direction: column;
+    align-items: flex-start;
+
+    // Must add width and height for .cell.
+    height: 100%;
+    width: 100%;
+}
+
+/**
+ * Right vertical center.
+ */
+.verticalCenterRight() {
+    .centerElement();
+
+    flex-direction: column;
+    align-items: flex-end;
+
+    // Must add width and height for .cell.
+    height: 100%;
+    width: 100%;
+}
+
+.overlayFullsize() {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+}
+
+/**
+ * Rotate an elemnent.
+ * https://css-tricks.com/snippets/css/useful-css3-less-mixins/
+ * https://stackoverflow.com/questions/12960249/rotate-text-by-using-less
+ */
+.rotate (@deg) {
+    -webkit-transform: rotate(@deg);
+    -moz-transform: rotate(@deg);
+    -ms-transform: rotate(@deg);
+    -o-transform: rotate(@deg);
+}
+
+/**
+ * ===============================================================
+ * Classes that use the functions above
+ * ===============================================================
+ */
+
+.center-element {
+    .centerElement();
+}
+
+.vertical-center-right {
+    .verticalCenterRight();
+}
+
+.vertical-center-left {
+    .verticalCenterLeft();
+}
+
+.overlay-fullsize {
+    .overlayFullsize();
+}

@@ -1,0 +1,41 @@
+@font-face {
+  font-family: 'icons-gm';
+  src:  url('../dist/fonts/icons-gm.eot?rw80ba');
+  src:  url('../dist/fonts/icons-gm.eot?rw80ba#iefix') format('embedded-opentype'),
+    url('../dist/fonts/icons-gm.ttf?rw80ba') format('truetype'),
+    url('../dist/fonts/icons-gm.woff?rw80ba') format('woff'),
+    url('../dist/fonts/icons-gm.svg?rw80ba#icons-gm') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icons-gm' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-close:before {
+  content: "\1f5d9";
+}
+.icon-arrow-up:before {
+  content: "\1f446";
+}
+.icon-logo-ginger-monkey:before {
+  content: "\1f412";
+}
+.icon-tag:before {
+  content: "\1f39e";
+}
+.icon-list:before {
+  content: "\1f5c9";
+}

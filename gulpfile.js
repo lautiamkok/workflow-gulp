@@ -12,6 +12,8 @@
 var gulp = require('gulp')
 var sourcemaps = require('gulp-sourcemaps')
 var livereload = require('gulp-livereload')
+var watch = require('gulp-watch')
+var batch = require('gulp-batch')
 
 // JavaScript development.
 var browserify = require('browserify')
@@ -29,7 +31,9 @@ var cleanCSS = require('gulp-clean-css')
 var concatCss = require('gulp-concat-css') // optional
 
 // HTML compilation.
-var htmlmin = require('gulp-htmlmin');
+var htmlmin = require('gulp-htmlmin')
+var path = require('path')
+var foreach = require('gulp-foreach')
 
 // Task to compile js.
 // https://gist.github.com/alkrauss48/a3581391f120ec1c3e03
@@ -38,10 +42,28 @@ gulp.task('compile-js', function () {
     // app.js is your main JS file with all your module inclusions
   return browserify({
     extensions: ['.js', '.jsx'],
-    entries: 'javascripts/app.js',
+
+    // To fix Babel 6 'regeneratorRuntime is not defined'.
+    // https://babeljs.io/docs/usage/polyfill
+    // http://esausilva.com/2017/07/11/uncaught-referenceerror-regeneratorruntime-is-not-defined-two-solutions/
+    // https://stackoverflow.com/questions/33527653/babel-6-regeneratorruntime-is-not-defined
+    entries:  ['./javascripts/app.js'],
+    // entries:  ["babel-polyfill", './javascripts/app.js'],
     debug: true
   })
-  .transform('babelify', { presets: ['es2015', 'react'] })
+  .transform('babelify', {
+    presets: ['es2015', 'es2017', 'react'],
+    plugins: [
+
+      // Turn async functions into ES2015 generators
+      // https://babeljs.io/docs/plugins/transform-async-to-generator/
+      "transform-async-to-generator"
+
+      // https://gist.github.com/EduardoRFS/4c3daa7f7c42cc53d047cc782e43f98e
+      // 'syntax-async-functions',
+      // 'transform-regenerator'
+    ]
+  })
   .bundle()
   .pipe(source('bundle.min.js'))
   .pipe(buffer())
@@ -55,18 +77,18 @@ gulp.task('compile-js', function () {
 // Task to compile less.
 gulp.task('compile-less', function () {
   return gulp.src([
-    'stylesheets/*.less'
+    'stylesheets/master.less'
   ])
   .pipe(sourcemaps.init())
   .pipe(less())
   .pipe(sourcemaps.write('./maps'))
-  .pipe(gulp.dest('stylesheets'))
+  .pipe(gulp.dest('stylesheets/css'))
 })
 
 // Task to minify css.
 gulp.task('minify-css', function () {
   return gulp.src([
-    'stylesheets/style.css'
+    'stylesheets/css/master.css'
   ])
   .pipe(sourcemaps.init())
   .pipe(cleanCSS({debug: true}))
@@ -79,33 +101,144 @@ gulp.task('minify-css', function () {
 // Task to minify html.
 // https://www.npmjs.com/package/gulp-htmlmin
 // https://github.com/kangax/html-minifier
-gulp.task('minify-html', function() {
-  return gulp.src('index.html')
-  .pipe(htmlmin({
-    collapseWhitespace: true,
-    removeComments: true
-  }))
-  .pipe(concat('index.min.html'))
-  .pipe(gulp.dest(''));
+// gulp.task('minify-html', function() {
+//   return gulp.src('index.html')
+//   .pipe(htmlmin({
+//     collapseWhitespace: true,
+//     removeComments: true
+//   }))
+//   .pipe(concat('index.min.html'))
+//   .pipe(gulp.dest(''))
+// })
+
+// Loop each html.
+// https://www.npmjs.com/package/gulp-foreach
+gulp.task('minify-html', function () {
+  return gulp.src('*.html')
+    .pipe(foreach(function(stream, file){
+      // Get the filename.
+      // https://github.com/mariusGundersen/gulp-flatMap/issues/4
+      // https://nodejs.org/api/path.html#path_path_basename_p_ext
+      var name = path.basename(file.path)
+      return stream
+        .pipe(htmlmin({
+          collapseWhitespace: true,
+          removeComments: true
+        }))
+        .pipe(concat('min.' + name))
+    }))
+    .pipe(gulp.dest(''))
 })
 
 // Task to copy fonts to dist.
-gulp.task('compile-fonts', function() {
+gulp.task('copy-fonts', function() {
   return gulp.src([
-    'fonts/*',
+    'fonts/*.{eot,svg,ttf,woff,woff2}',
+    'fonts/**/*.{eot,svg,ttf,woff,woff2}',
     'node_modules/material-design-icons/iconfont/MaterialIcons-Regular.*',
     'node_modules/foundation-icon-fonts/foundation-icons.*',
   ])
-  .pipe(gulp.dest('dist/fonts/'));
-});
-
-// Task to watch less & css changes.
-gulp.task('watch', function () {
-  gulp.watch('javascripts/*.js', ['compile-js'])  // Watch all the .js files, then run the js task
-  gulp.watch('stylesheets/*.less', ['compile-less'])  // Watch all the .less files, then run the less task
-  gulp.watch('stylesheets/*.css', ['minify-css'])  // Watch all the .css files, then run the css task
-  gulp.watch('stylesheets/*.css', ['compile-fonts'])  // Watch all the .css files, then run the font task
+  .pipe(gulp.dest('dist/fonts/'))
 })
+
+// Task to copy images to dist.
+gulp.task('copy-images', function() {
+  return gulp.src([
+    'images/*.{jpg,png,gif}',
+    'images/**/*.{jpg,png,gif}',
+    'node_modules/jquery-ui-bundle/images/*',
+  ])
+  .pipe(gulp.dest('dist/images/'))
+})
+
+// Task to watch.
+gulp.task('watch', function () {
+
+  // Watch all js files recursively.
+  watch([
+      'javascripts/**',
+      'javascripts/**/*.js'
+    ], batch(function (events, done) {
+      gulp.start('compile-js', done)
+  }))
+
+  // Watch all less files recursively.
+  watch([
+      'stylesheets/**',
+      'stylesheets/**/*.less'
+    ], batch(function (events, done) {
+      gulp.start('compile-less', done)
+  }))
+
+  // Watch all css files recursively.
+  watch([
+      'stylesheets/**',
+      'stylesheets/**/*.css'
+    ], batch(function (events, done) {
+      gulp.start('minify-css', done)
+  }))
+
+  // Watch all image files recursively.
+  watch([
+      'images/**',
+      'images/**/*.{jpg,png,gif}'
+    ], batch(function (events, done) {
+      gulp.start('copy-images', done)
+  }))
+
+  // Watch all fonts files recursively.
+  watch([
+      'fonts/**',
+      'fonts/**/*.{eot,svg,ttf,woff,woff2}'
+    ], batch(function (events, done) {
+      gulp.start('copy-fonts', done)
+  }))
+})
+
+// Task to watch.
+// Notes:
+// gulp crashes after renaming or deleting folders, see question below,
+// https://stackoverflow.com/questions/50551062/gulp-crashes-after-renaming-or-deleting-folders
+// gulp.task('watch', function () {
+
+//   // Watch all js files recursively.
+//   gulp.watch([
+//     // 'javascripts/**/*.js', // does not work when new folders added.
+//     'javascripts/**',
+//   ],[
+//     'compile-js'
+//   ])
+
+//   // Watch all the .less files recursively.
+//   gulp.watch([
+//     'stylesheets/**/*.less'
+//   ], [
+//     'compile-less'
+//   ])
+
+//   // Watch all css files recursively.
+//   gulp.watch([
+//     'stylesheets/**/*.css'
+//   ], [
+//     'minify-css'
+//   ])
+
+//   // Watch all fonts files recursively.
+//   gulp.watch([
+//     // 'fonts/**/*.{eot,svg,ttf,woff,woff2}', // does not work for some reason when new folders added.
+//     'fonts/**',
+//   ], [
+//     'copy-fonts',
+//   ])
+
+//   // Watch all image files recursively.
+//   gulp.watch([
+//     // 'images/**/*.{jpg,png,gif}', // does not work for some reason when new folders added.
+//     'images/**'
+//   ], [
+//     'copy-images'
+//   ])
+// })
 
 // Development:
 // Task when running `gulp` from terminal.
@@ -113,4 +246,10 @@ gulp.task('default', ['watch'])
 
 // Production:
 // Task when running `gulp build` from terminal.
-gulp.task('build', ['minify-css', 'compile-fonts', 'compile-js', 'minify-html'])
+gulp.task('build', [
+  'minify-css',
+  'copy-fonts',
+  'copy-images',
+  'compile-js',
+  'minify-html'
+])
