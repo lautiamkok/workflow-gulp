@@ -20,3 +20,12 @@ $ gulp build
 ```
 
 Access your project on any browser.
+
+# Notes
+
+1. To update each dependency in package.json to the latest version:
+
+```
+$ sudo npm install -g npm-check-updates
+$ ncu -u
+```
