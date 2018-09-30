@@ -1,6 +1,6 @@
 {
-  "name": "caremed",
-  "description": "packages for caremed",
+  "name": "example",
+  "description": "packages for example",
   "author": "lau thiam kok",
   "license": "ISC",
   "dependencies": {
