@@ -36,33 +36,16 @@ var path = require('path')
 var foreach = require('gulp-foreach')
 
 // Task to compile js.
-// https://gist.github.com/alkrauss48/a3581391f120ec1c3e03
-// http://blog.revathskumar.com/2016/02/browserify-with-gulp.html
 gulp.task('compile-js', function () {
     // app.js is your main JS file with all your module inclusions
   return browserify({
-    extensions: ['.js', '.jsx'],
-
-    // To fix Babel 6 'regeneratorRuntime is not defined'.
-    // https://babeljs.io/docs/usage/polyfill
-    // http://esausilva.com/2017/07/11/uncaught-referenceerror-regeneratorruntime-is-not-defined-two-solutions/
-    // https://stackoverflow.com/questions/33527653/babel-6-regeneratorruntime-is-not-defined
+    extensions: ['.js'],
     entries:  ['./javascripts/app.js'],
-    // entries:  ["babel-polyfill", './javascripts/app.js'],
     debug: true
   })
   .transform('babelify', {
-    presets: ['es2015', 'es2017', 'react'],
-    plugins: [
-
-      // Turn async functions into ES2015 generators
-      // https://babeljs.io/docs/plugins/transform-async-to-generator/
-      "transform-async-to-generator"
-
-      // https://gist.github.com/EduardoRFS/4c3daa7f7c42cc53d047cc782e43f98e
-      // 'syntax-async-functions',
-      // 'transform-regenerator'
-    ]
+    // https://babeljs.io/docs/en/env/
+    presets: ['@babel/preset-env']
   })
   .bundle()
   .pipe(source('bundle.min.js'))
