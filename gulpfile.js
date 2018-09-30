@@ -37,13 +37,14 @@ var foreach = require('gulp-foreach')
 
 // Task to compile js.
 gulp.task('compile-js', function () {
-    // app.js is your main JS file with all your module inclusions
+  // app.js is your main JS file with all your module inclusions
   return browserify({
     extensions: ['.js'],
     entries:  ['./javascripts/app.js'],
     debug: true
   })
   .transform('babelify', {
+
     // https://babeljs.io/docs/en/env/
     presets: ['@babel/preset-env']
   })
