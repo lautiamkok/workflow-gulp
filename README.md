@@ -26,6 +26,6 @@ Access your project on any browser.
 1. To update each dependency in package.json to the latest version:
 
 ```
-$ sudo npm install -g npm-check-updates
-$ ncu -u
+$ sudo npm install -g npm-upgrade
+$ npm-upgrade
 ```
