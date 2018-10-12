@@ -128,8 +128,8 @@ gulp.task('copy-fonts', function() {
 // Task to copy images to dist.
 gulp.task('copy-images', function() {
   return gulp.src([
-    'images/*.{jpg,png,gif}',
-    'images/**/*.{jpg,png,gif}',
+    'images/*.{jpg,png,gif,svg}',
+    'images/**/*.{jpg,png,gif,svg}',
     'node_modules/jquery-ui-bundle/images/*',
   ])
   .pipe(gulp.dest('dist/images/'))
